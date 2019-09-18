@@ -8,3 +8,9 @@ _completion_loader git
 
 # copy the original statement, but replace the last command (git) with your alias (g)
 complete -o bashdefault -o default -o nospace -F __git_wrap__git_main dotfiles
+
+if [[ $(type -t compopt) = "builtin" ]]; then
+    complete -o default -F __start_bcnctl baconctl
+else
+    complete -o default -o nospace -F __start_bcnctl baconctl
+fi
