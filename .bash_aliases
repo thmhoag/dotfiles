@@ -1,13 +1,7 @@
-alias ls="ls -lh --color=auto"
+alias ls='ls -l --color=always'
+alias less='less -r'
 
-alias baconctl="bcnctl"
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles-repo/ --work-tree=$HOME'
 
-# copy the original statement, but replace the last command (git) with your alias (g)
-complete -o bashdefault -o default -o nospace -F __git_wrap__git_main dotfiles
-
-if [[ $(type -t compopt) = "builtin" ]]; then
-    complete -o default -F __start_bcnctl baconctl
-else
-    complete -o default -o nospace -F __start_bcnctl baconctl
+if [ -f ~/.bash_aliases.local ]; then
+    . ~/.bash_aliases.local
 fi
