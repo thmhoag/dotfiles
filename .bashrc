@@ -74,11 +74,8 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -87,31 +84,22 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+    . $HOME/.bash_aliases
 fi
 
 # enable bash function file
-if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
+if [ -f $HOME/.bash_functions ]; then
+    . $HOME/.bash_functions
 fi
 
 # Enable environment variables file
-if [ -f ~/.bash_env ]; then
-    . ~/.bash_env
+if [ -f $HOME/.bash_env ]; then
+    . $HOME/.bash_env
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -124,15 +112,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# Enable the use of ctrl+s and ctrl+q instead of freezing screen
-stty -ixon
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/thoag/google-cloud-sdk/path.bash.inc' ]; then source '/home/thoag/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/thoag/google-cloud-sdk/completion.bash.inc' ]; then source '/home/thoag/google-cloud-sdk/completion.bash.inc'; fi
 
 # Setup bash auto-complete for tmuxinator if present
 if [ -f "$HOME/.bin/tmuxinator.bash" ]; then source "$HOME/.bin/tmuxinator.bash"; fi
@@ -149,3 +128,12 @@ command -v atlasctl >/dev/null 2>&1 && source <(atlasctl completion)
 command -v kind >/dev/null 2>&1 && source <(kind completion bash)
 command -v baconctl >/dev/null 2>&1 && source <(baconctl completion bash)
 command -v codectl >/dev/null 2>&1 && source <(codectl completion bash)
+
+# Enable environment variables file
+if [ -f $HOME/.bashrc.local ]; then
+    . $HOME/.bashrc.local
+fi
+
+# Enable the use of ctrl+s and ctrl+q instead of freezing screen
+stty -ixon
+

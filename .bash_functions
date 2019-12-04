@@ -2,6 +2,6 @@
 
 
 # enable bash function file
-if [ -f ~/.bash_functions.local ]; then
-    . ~/.bash_functions.local
+if [ -f $HOME/.bash_functions.local ]; then
+    . $HOME/.bash_functions.local
 fi

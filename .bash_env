@@ -1,0 +1,8 @@
+
+# Set default editor
+export EDITOR=vim
+
+# enable bash env file
+if [ -f $HOME/.bash_env.local ]; then
+    . $HOME/.bash_env.local
+fi
