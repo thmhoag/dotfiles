@@ -414,6 +414,8 @@ vnoremap K :m '<-2<CR>gv=gv
 "" Open current line on GitHub
 nnoremap <Leader>o :.Gbrowse<CR>
 
+vnoremap <C-h> "0y<Esc>:%s/<C-r>0//g<left><left>
+
 "*****************************************************************************
 "" Custom configs
 "*****************************************************************************
