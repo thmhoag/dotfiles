@@ -28,20 +28,17 @@ call plug#begin(expand('~/.vim/plugged'))
 "" Plug install packages
 "*****************************************************************************
 Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/grep.vim'
-Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/indentLine'
-Plug 'avelino/vim-bootstrap-updater'
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'tomasiser/vim-code-dark'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -69,7 +66,7 @@ Plug 'tomasr/molokai'
 " go
 "" Go Lang Bundle
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-
+Plug 'sheerun/vim-polyglot'
 
 "*****************************************************************************
 "*****************************************************************************
@@ -168,6 +165,9 @@ if &term =~ '256color'
   set t_ut=
 endif
 
+" Focus below/right after split
+:set splitbelow
+:set splitright
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
@@ -291,7 +291,9 @@ set autoread
 
 "" Split
 noremap <Leader>h :<C-u>split<CR>
+noremap <_> :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
+noremap <Bar> :<C-u>vsplit<CR>
 
 "" Git
 noremap <Leader>ga :Gwrite<CR>
@@ -310,8 +312,8 @@ nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
 "" Tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
+nnoremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
 nnoremap <silent> <S-t> :tabnew<CR>
 
 "" Set working directory
