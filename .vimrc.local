@@ -15,11 +15,11 @@ au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 nmap <c-s> :w<cr>
 imap <c-s> <esc>:w<cr>
 
-nmap <c-q> :q<cr>
-imap <c-q> <esc>:q<cr>
+nmap <c-q> :quitall<cr>
+imap <c-q> <esc>:quitall<cr>
 
-nmap <c-qq> :q!<cr>
-imap <c-qq> <esc>:q!<cr>
+nmap <c-qq> :quitall!<cr>
+imap <c-qq> <esc>:quitall!<cr>
 
 " Error and warning signs.
 let g:ale_sign_error = '⤫'
@@ -154,8 +154,6 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
 set pastetoggle=<F2>
 
