@@ -2,6 +2,9 @@
 # Set default editor
 export EDITOR=vim
 
+# use new docker buildkit
+export DOCKER_BUILDKIT=1
+
 # enable bash env file
 if [ -f $HOME/.bash_env.local ]; then
     . $HOME/.bash_env.local
