@@ -137,3 +137,5 @@ fi
 # Enable the use of ctrl+s and ctrl+q instead of freezing screen
 stty -ixon
 
+# Add fuzzy finder
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
