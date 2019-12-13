@@ -30,6 +30,7 @@ font pango:monospace 8
 
 # Use Mouse+$super to drag floating windows to their wanted position
 floating_modifier $super
+focus_follows_mouse no
 
 # start a terminal
 bindsym $super+Return exec i3-sensible-terminal
@@ -124,7 +125,7 @@ bindsym $super+Shift+9 move container to workspace 9
 bindsym $super+Shift+0 move container to workspace 10
 
 # reload the configuration file
-bindsym $super+Conrol+F5 reload
+bindsym $super+Control+F5 reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $super+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -168,9 +169,15 @@ bindsym $super+control+Up move workspace to output up
 bindsym $super+control+Right move workspace to output right
 
 # workspace default monitors
-workspace $ws1 output DP-2
-workspace $ws2 output DP-1
-workspace $ws3 output eDP-1
+workspace 1 output DP-1
+workspace 2 output DP-2
+workspace 3 output eDP-1
+
+# app specific settings
+assign [class="Slack"] 3
+assign [class="Google-chrome" title="Google Hangouts.*"] 3
+
+for_window [class="Slack"] floating enable
 
 # lockscreen
 bindsym $super+Mod1+l exec ~/.config/i3/i3lock-extra -p 20 -m blur $lock_image
