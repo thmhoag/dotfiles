@@ -12,27 +12,27 @@ set -eo pipefail
 command -v git >/dev/null 2>&1 || { echo "git is required but not installed, aborting..." >&2; exit 1; }
 
 # backup existing files that will be overwritten
-local bashrc_file="$HOME/.bashrc"
+bashrc_file="$HOME/.bashrc"
 if [[ -f "$bashrc_file" ]]; then
    cp $bashrc_file "$bashrc_file.bk" 
 fi
 
-local bash_env_file="$HOME/.bash_env"
+bash_env_file="$HOME/.bash_env"
 if [[ -f "$bash_env_file" ]]; then
    cp $bash_env_file "$bash_env_file.bk" 
 fi
 
-local bash_aliases_file="$HOME/.bash_aliases"
+bash_aliases_file="$HOME/.bash_aliases"
 if [[ -f "$bash_aliases_file" ]]; then
    cp $bash_aliases_file "$bash_aliases_file.bk" 
 fi
 
-local bash_functions_file="$HOME/.bash_functions"
+bash_functions_file="$HOME/.bash_functions"
 if [[ -f "$bash_functions_file" ]]; then
    cp $bash_functions_file "$bash_functions_file.bk" 
 fi
 
-local bash_bindings_file="$HOME/.bash_bindings"
+bash_bindings_file="$HOME/.bash_bindings"
 if [[ -f "$bash_bindings_file" ]]; then
    cp $bash_bindings_file "$bash_bindings_file.bk" 
 fi
@@ -40,10 +40,8 @@ fi
 # pull down dotfiles
 git clone --separate-git-dir=$HOME/.dotfiles-repo ${DOTFILES_REPO_URL} $HOME/dotfiles-repo-tmp
 
-# move Git submodules if exists
-if [[ -d "$HOME/dotfiles-repo-tmp/.gitmodules" ]]; then
-    cp $HOME/dotfiles-repo-tmp/.gitmodules $HOME  # If you use Git submodules
-fi
+# move the files
+cp -r $HOME/dotfiles-repo-tmp/. $HOME/
 
 # remove tmp dir
 rm -r $HOME/dotfiles-repo-tmp/
