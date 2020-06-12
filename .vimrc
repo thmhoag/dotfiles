@@ -50,6 +50,9 @@ else
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
 endif
+
+Plug 'yuki-ycino/fzf-preview.vim'
+
 let g:make = 'gmake'
 if exists('make')
         let g:make = 'make'
