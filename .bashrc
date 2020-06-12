@@ -139,3 +139,4 @@ stty -ixon
 
 # Add fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/scripts/fzf/functions.sh ] && source ~/scripts/fzf/functions.sh
