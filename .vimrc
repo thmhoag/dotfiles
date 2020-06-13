@@ -1,8 +1,6 @@
-" vim-bootstrap 
-
-"*****************************************************************************
-"" Vim-PLug core
-"*****************************************************************************
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim-Plug Core Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "go"
@@ -24,9 +22,9 @@ endif
 " Required:
 call plug#begin(expand('~/.vim/plugged'))
 
-"*****************************************************************************
-"" Plug install packages
-"*****************************************************************************
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" plug install packages
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-commentary'
@@ -62,17 +60,9 @@ Plug 'Shougo/vimproc.vim', {'do': g:make}
 "" Color
 Plug 'tomasr/molokai'
 
-"*****************************************************************************
-"" Custom bundles
-"*****************************************************************************
-
-" go
 "" Go Lang Bundle
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'sheerun/vim-polyglot'
-
-"*****************************************************************************
-"*****************************************************************************
 
 "" Include user's extra bundle
 if filereadable(expand("~/.vimrc.local.bundles"))
@@ -88,6 +78,7 @@ filetype plugin indent on
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
+
 "" Encoding
 set encoding=utf-8
 set fileencoding=utf-8
@@ -126,6 +117,7 @@ endif
 "*****************************************************************************
 "" Visual Settings
 "*****************************************************************************
+
 syntax on
 set ruler
 set number
@@ -152,7 +144,7 @@ else
   let g:indentLine_char = '┆'
   let g:indentLine_faster = 1
 
-  
+
   if $COLORTERM == 'gnome-terminal'
     set term=gnome-256color
   else
@@ -160,7 +152,7 @@ else
       set term=xterm-256color
     endif
   endif
-  
+
 endif
 
 
@@ -209,6 +201,7 @@ let g:airline_skip_empty_sections = 1
 "*****************************************************************************
 "" Abbreviations
 "*****************************************************************************
+
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -244,12 +237,14 @@ nnoremap <silent> <leader>sh :terminal<CR>
 "*****************************************************************************
 "" Commands
 "*****************************************************************************
+
 " remove trailing whitespaces
 command! FixWhitespace :%s/\s\+$//e
 
 "*****************************************************************************
 "" Functions
 "*****************************************************************************
+
 if !exists('*s:setupWrapping')
   function s:setupWrapping()
     set wrap
@@ -257,6 +252,7 @@ if !exists('*s:setupWrapping')
     set textwidth=79
   endfunction
 endif
+
 
 "*****************************************************************************
 "" Autocmd Rules
@@ -298,15 +294,6 @@ noremap <_> :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
 noremap <Bar> :<C-u>vsplit<CR>
 
-"" Git
-noremap <Leader>ga :Gwrite<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
 
 " session management
 nnoremap <leader>so :OpenSession<Space>
@@ -327,33 +314,6 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "" Opens a tab edit command with the path of the currently edited file filled
 noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-"" fzf.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
-
-" The Silver Searcher
-if executable('ag')
-  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
-
-" ripgrep
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  set grepprg=rg\ --vimgrep
-  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-endif
-
-cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>e :FZF -m<CR>
-"Recovery commands from history through FZF
-nmap <leader>y :History:<CR>
-
-" ale
-let g:ale_linters = {}
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -411,81 +371,6 @@ nnoremap <Leader>o :.Gbrowse<CR>
 
 vnoremap <C-h> "0y<Esc>:%s/<C-r>0//g<left><left>
 
-" Fix coc.nvim bindings to work with vimdiff
-nmap <silent> <expr> [c &diff ? '[c' : '<Plug>(coc-diagnostic-prev)'
-nmap <silent> <expr> ]c &diff ? ']c' : '<Plug>(coc-diagnostic-next)'
-
-"*****************************************************************************
-"" Custom configs
-"*****************************************************************************
-
-" go
-" vim-go
-" run :GoBuild or :GoTestCompile based on the go file
-function! s:build_go_files()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
-
-let g:go_list_type = "quickfix"
-let g:go_fmt_command = "goimports"
-let g:go_fmt_fail_silently = 1
-
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_space_tab_error = 0
-let g:go_highlight_array_whitespace_error = 0
-let g:go_highlight_trailing_whitespace_error = 0
-let g:go_highlight_extra_types = 1
-
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
-
-augroup completion_preview_close
-  autocmd!
-  if v:version > 703 || v:version == 703 && has('patch598')
-    autocmd CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
-  endif
-augroup END
-
-augroup go
-
-  au!
-  au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-  au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-  au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-  au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-
-  au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
-  au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
-  au FileType go nmap <Leader>db <Plug>(go-doc-browser)
-
-  au FileType go nmap <leader>r  <Plug>(go-run)
-  au FileType go nmap <leader>t  <Plug>(go-test)
-  au FileType go nmap <Leader>gt <Plug>(go-coverage-toggle)
-  au FileType go nmap <Leader>i <Plug>(go-info)
-  au FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
-  au FileType go nmap <C-g> :GoDecls<cr>
-  au FileType go nmap <leader>dr :GoDeclsDir<cr>
-  au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
-  au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
-  au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
-
-augroup END
-
-" ale
-:call extend(g:ale_linters, {
-    \"go": ['golint', 'go vet']})
-
 
 "*****************************************************************************
 "" Convenience variables
@@ -532,8 +417,32 @@ if &diff
     set noreadonly
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure Text Formatting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+noremap Y y$
+
+
+let b:delimitMate_expand_cr = 1
+let b:delimitMate_insert_eol_marker = 2
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" configure swap and sessions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Store Swap Files out the the way
 set directory^=$HOME/.vim/swap//
+
+" maintain undo history between sessions
+set undodir=~/.vim/undodir
+set undofile
+
+set nobackup
+set nowritebackup
+
+set noswapfile
 
 " Session Options and Functions
 set ssop-=options    " do not store global and local values in a session
@@ -570,6 +479,279 @@ else
   au VimLeave * :call MakeSession(0)
 endif
 
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" configure aliases file types
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd BufNewFile,BufRead *.tpl set filetype=go
+autocmd BufNewFile,BufRead *.manifest set filetype=json
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure Vim-go
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:go_auto_type_info = 1
+let g:go_autodetect_gopath = 1
+let g:go_decls_mode = 'fzf'
+
+let g:go_def_mapping_enabled = 0
+let g:go_def_mode='gopls'
+
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 0
+let g:go_fmt_experimental = 1 " fixes opening folds on save
+
+let g:go_highlight_extra_types = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_auto_sameids=1
+
+let g:go_info_mode='gopls'
+
+let g:go_list_type = "quickfix"
+
+let g:go_snippet_engine = "ultisnips"
+
+" the following functionality is handled by the LC
+let g:go_def_mapping_enabled = 0
+let g:go_code_completion_enabled = 0
+
+augroup go
+  autocmd!
+    au FileType go nmap <silent> gb <Plug>(go-build)
+    au FileType go nmap <silent> gt <Plug>(go-test)
+    au FileType go nmap <silent> gc <Plug>(go-coverage)
+    au FileType go nmap <silent> grn <Plug>(go-rename)
+
+    " swap between tests and code
+    au FileType go nmap <silent> ga <Plug>(go-alternate-edit)
+    au Filetype go nmap <silent> gav <Plug>(go-alternate-vertical)
+augroup END
+
+function! s:go_guru_scope_from_git_root()
+  let gitroot = system("git rev-parse --show-toplevel | tr -d '\n'")
+  let pattern = escape(go#util#gopath() . "/src/", '\ /')
+  return join([gitroot, '...'], '/')
+endfunction
+
+au FileType go silent exe "GoGuruScope " . s:go_guru_scope_from_git_root()
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure Ale
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:ale_sign_column_always = 1
+let g:ale_keep_list_window_open = 0
+let g:ale_set_hightlights = 1
+let g:ale_open_list = 1
+let g:ale_set_signs = 1
+let g:ale_sign_column_always = 1
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+
+" Enable integration with airline.
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+    \ 'cs': ['OmniSharp'],
+    \ 'javascript': ['eslint'],
+\}
+
+let g:ale_fix_on_save=1
+let g:ale_fixers={
+\ '*':['remove_trailing_lines','trim_whitespace'],
+\  'javascript': ['eslint'],
+\ }
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure FZF
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Keymaps
+nnoremap <leader>ff :Files <CR>
+nnoremap <leader>bb :Buffers <CR>
+nnoremap <leader>gf :GFiles <CR>
+nnoremap <leader>rg :Rg <CR>
+nnoremap <leader>ll :Lines <CR>
+nnoremap <leader>mp :Maps <CR>
+nnoremap <leader>hh :History <CR>
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+
+" The Silver Searcher
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+" ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+
+cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>e :FZF -m<CR>
+"Recovery commands from history through FZF
+nmap <leader>y :History:<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure coc.nvim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Fix coc.nvim bindings to work with vimdiff
+nmap <silent> <expr> [c &diff ? '[c' : '<Plug>(coc-diagnostic-prev)'
+nmap <silent> <expr> ]c &diff ? ']c' : '<Plug>(coc-diagnostic-next)'
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure Fugitive
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" open gstatus in vertical split and switch to it
+nnoremap <silent> <leader>gs :Gstatus<CR><C-W>t<C-W>H<C-W><Right>
+nnoremap <silent> <leader>gdf :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+nnoremap <silent> <leader>gpl :gpull<cr>
+nnoremap <silent> <leader>grm :gremove<cr>
+
 "*****************************************************************************
 "*****************************************************************************
 
@@ -577,4 +759,3 @@ endif
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
-

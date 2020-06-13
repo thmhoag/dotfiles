@@ -1,12 +1,16 @@
 {
   "languageserver": {
     "golang": {
+      "enable": true,
       "command": "gopls",
       "settings": {
          "wantCompletionDocumentation": true
       },
       "rootPatterns": [
-        "go.mod"
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
       ],
       "filetypes": [
         "go"
