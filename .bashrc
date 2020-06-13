@@ -136,8 +136,9 @@ command -v codectl >/dev/null 2>&1 && source <(codectl completion bash)
 stty -ixon
 
 # Add fuzzy finder
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[ -f ~/scripts/fzf/functions.sh ] && source ~/scripts/fzf/functions.sh
+[ -f $HOME/.fzf.bash ] && source $HOME/.fzf.bash
+[ -f $HOME/scripts/fzf/functions.sh ] && source ~/scripts/fzf/functions.sh
+[ -f $HOME/scripts/fzf/forgit.plugin.zsh ] && source $HOME/scripts/fzf/forgit.plugin.zsh
 
 # Enable environment variables file
 # THIS SHOULD ALWAYS BE LAST SO IT CAN
