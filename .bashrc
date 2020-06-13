@@ -116,7 +116,11 @@ fi
 # Setup bash auto-complete for tmuxinator if present
 if [ -f "$HOME/.bin/tmuxinator.bash" ]; then source "$HOME/.bin/tmuxinator.bash"; fi
 
+# setup go version manager
 if [ -f "$HOME/.gvm/scripts/gvm" ]; then source "$HOME/.gvm/scripts/gvm"; fi
+
+# setup helmenv
+if [ -d "$HOME/.helmenv/bin" ]; then export PATH="$HOME/.helmenv/bin:$PATH"; fi
 
 export NVM_DIR="$HOME/.nvm"
 if [ -f "$NVM_DIR/nvm.sh" ]; then source "$NVM_DIR/nvm.sh"; fi
@@ -124,15 +128,9 @@ if [ -f "$NVM_DIR/bash_completion" ]; then source "$NVM_DIR/bash_completion"; fi
 
 command -v kubectl >/dev/null 2>&1 && source <(kubectl completion bash)
 command -v helm >/dev/null 2>&1 && source <(helm completion bash)
-command -v atlasctl >/dev/null 2>&1 && source <(atlasctl completion)
 command -v kind >/dev/null 2>&1 && source <(kind completion bash)
 command -v baconctl >/dev/null 2>&1 && source <(baconctl completion bash)
 command -v codectl >/dev/null 2>&1 && source <(codectl completion bash)
-
-# Enable environment variables file
-if [ -f $HOME/.bashrc.local ]; then
-    . $HOME/.bashrc.local
-fi
 
 # Enable the use of ctrl+s and ctrl+q instead of freezing screen
 stty -ixon
@@ -140,3 +138,10 @@ stty -ixon
 # Add fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/scripts/fzf/functions.sh ] && source ~/scripts/fzf/functions.sh
+
+# Enable environment variables file
+# THIS SHOULD ALWAYS BE LAST SO IT CAN
+# OVERRIDE
+if [ -f $HOME/.bashrc.local ]; then
+    . $HOME/.bashrc.local
+fi

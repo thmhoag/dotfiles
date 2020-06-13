@@ -2,7 +2,13 @@
 
 set -eo pipefail
 
-VERSION=2.8
+if [ "$EUID" -ne 0 ]; then
+    # must run as root
+    sudo "$0" "$@"
+    exit
+fi
+
+VERSION=3.1
 
 apt-get update
 apt-get -y remove tmux

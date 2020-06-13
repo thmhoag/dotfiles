@@ -1,4 +1,7 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
+
+echo "OBSOLETE, DO NOT USE"
+exit 1
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
@@ -52,7 +55,7 @@ echo "DOCKER_HOST=0.0.0.0:2375" >> $HOME/.bashrc
 
 printf "\n\nInstalling kubectl...\n"
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-touch /etc/apt/sources.list.d/kubernetes.list 
+touch /etc/apt/sources.list.d/kubernetes.list
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 
 apt-get update
