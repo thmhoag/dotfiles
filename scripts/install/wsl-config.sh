@@ -4,7 +4,7 @@ set -eo pipefail
 
 if [ "$EUID" -ne 0 ]; then
     # must run as root
-    sudo "$0" "$@"
+    sudo WSL_DISTRO_NAME=$WSL_DISTRO_NAME "$0" "$@"
     exit
 fi
 
