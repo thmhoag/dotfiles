@@ -44,10 +44,10 @@ curl -sL https://go.kubebuilder.io/dl/$VERSION/$OSEXT/$ARCH | tar -xz -C /tmp/
 sudo mv /tmp/kubebuilder_${VERSION}_${OSEXT}_${ARCH}/bin/kubebuilder /usr/local/bin/
 rm -rf /tmp/kubebuilder_${VERSION}_${OSEXT}_${ARCH}
 
-cat << EOF >>
+cat << EOF
 Make sure to add the following to your path in your bashrc or otherwise:
 
-    export PATH=$PATH:/usr/local/kubebuilder/bin
+    export PATH=\$PATH:/usr/local/kubebuilder/bin
 
 Installation complete!
 EOF

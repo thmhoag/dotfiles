@@ -10,11 +10,7 @@ VERSION=$(curl -L -s https://api.github.com/repos/operator-framework/operator-sd
 printf "Getting latest version: v$VERSION\n\n"
 
 # download binaries
-sudo curl -L -o /usr/local/bin/operator-sdk https://github.com/operator-framework/operator-sdk/releases/download/v${VERSION}/operator-sdk-v${VERSION}-x86_64-linux-gnu
-
-# make executable
-printf "\nMake sure it's executable...\n\n"
-
+sudo curl -sL -o /usr/local/bin/operator-sdk https://github.com/operator-framework/operator-sdk/releases/download/v${VERSION}/operator-sdk-v${VERSION}-x86_64-linux-gnu
 sudo chmod a+x /usr/local/bin/operator-sdk
 
 echo "Install complete!"
