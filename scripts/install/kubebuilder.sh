@@ -1,16 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # exit if any error
 set -eo pipefail
 
-# Check to make sure we are running as root
-if [ "$EUID" -ne 0 ]
-  then printf "\nPlease run as root\n\n"
-  exit 1
-fi
-
 echo "Beginning install of kubebuilder..."
-
 
 # Determine OS
 OS="$(uname)"
@@ -48,7 +41,13 @@ curl -sL https://go.kubebuilder.io/dl/$VERSION/$OSEXT/$ARCH | tar -xz -C /tmp/
 
 # move to a long-term location and put it on your path
 # (you'll need to set the KUBEBUILDER_ASSETS env var if you put it somewhere else)
-mv /tmp/kubebuilder_${VERSION}_${OSEXT}_${ARCH}/bin/kubebuilder /usr/local/bin/
+sudo mv /tmp/kubebuilder_${VERSION}_${OSEXT}_${ARCH}/bin/kubebuilder /usr/local/bin/
 rm -rf /tmp/kubebuilder_${VERSION}_${OSEXT}_${ARCH}
 
-# export PATH=$PATH:/usr/local/kubebuilder/bin
+cat << EOF >>
+Make sure to add the following to your path in your bashrc or otherwise:
+
+    export PATH=$PATH:/usr/local/kubebuilder/bin
+
+Installation complete!
+EOF

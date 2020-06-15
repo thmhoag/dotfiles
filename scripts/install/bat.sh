@@ -2,13 +2,9 @@
 
 set -eo pipefail
 
-if [ "$EUID" -ne 0 ]; then
-    # must run as root
-    sudo "$0" "$@"
-    exit
-fi
+VERSION=$(curl -L -s https://api.github.com/repos/sharkdp/bat/releases/latest | grep tag_name | sed "s/ *\"tag_name\": *\"\\(.*\\)\",*/\\1/" | grep -oE "[0-9]+[.][0-9]+[.][0-9]+")
 
-apt-get update
-apt-get install bat -y
+echo -e "installing bat ${VERSION}..."
 
-ln -sf /usr/bin/batcat /usr/local/bin/bat
+curl -sOL https://github.com/sharkdp/bat/releases/download/v${VERSION}/bat-musl_${VERSION}_amd64.deb
+sudo dpkg --force-overwrite -i bat-musl_${VERSION}_amd64.deb
