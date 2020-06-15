@@ -164,8 +164,6 @@ endif
 :set splitbelow
 :set splitright
 
-"" Disable the blinking cursor.
-set gcr=a:blinkon0
 set scrolloff=3
 
 "" Status bar
@@ -418,7 +416,7 @@ if &diff
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure Text Formatting
+" Configure Editor Formatting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
@@ -427,6 +425,29 @@ noremap Y y$
 
 let b:delimitMate_expand_cr = 1
 let b:delimitMate_insert_eol_marker = 2
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure Cursor
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Cursor in terminal
+  " https://vim.fandom.com/wiki/Configuring_the_cursor
+  " 1 or 0 -> blinking block
+  " 2 solid block
+  " 3 -> blinking underscore
+  " 4 solid underscore
+  " Recent versions of xterm (282 or above) also support
+  " 5 -> blinking vertical bar
+  " 6 -> solid vertical bar
+
+if &term =~ '^xterm'
+    " normal mode
+    let &t_EI .= "\<Esc>[4 q"
+    " insert mode
+    let &t_SI .= "\<Esc>[6 q"
+endif
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " configure swap and sessions
