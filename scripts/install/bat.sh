@@ -8,3 +8,4 @@ echo -e "installing bat ${VERSION}..."
 
 curl -sOL https://github.com/sharkdp/bat/releases/download/v${VERSION}/bat-musl_${VERSION}_amd64.deb
 sudo dpkg --force-overwrite -i bat-musl_${VERSION}_amd64.deb
+rm bat-musl_${VERSION}_amd64.deb

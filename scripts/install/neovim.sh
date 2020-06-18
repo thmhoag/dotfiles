@@ -13,7 +13,8 @@ curl -sOL https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/n
 chmod a+rx nvim.appimage
 ./nvim.appimage --appimage-extract
 
-sudo cp -ra squashfs-root/usr/. /usr/
+sudo chmod 0755 ./squashfs-root
+sudo cp -r squashfs-root/usr/. /usr/
 
 rm -r squashfs-root/
 rm -r nvim.appimage

@@ -6,7 +6,7 @@ KUBECTL_VERSION="$(curl -s https://storage.googleapis.com/kubernetes-release/rel
 
 echo "Installing kubectl $KUBECTL_VERSION..."
 
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl
+curl -sLO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
