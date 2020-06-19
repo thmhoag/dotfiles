@@ -41,6 +41,8 @@ Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'tomasiser/vim-code-dark'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'wikitopian/hardmode'
+Plug 'vim-test/vim-test'
+Plug 'neomake/neomake'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -511,6 +513,20 @@ autocmd BufNewFile,BufRead *.manifest set filetype=json
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure vim-test Plugin
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" these Ctrl mappings work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+" let test#strategy = "neomake"
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Vim-go
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -593,6 +609,7 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
     \ 'javascript': ['eslint'],
+    \ 'go': ['gopls'],
 \}
 
 let g:ale_fix_on_save=1
