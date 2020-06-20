@@ -131,6 +131,7 @@ command -v helm >/dev/null 2>&1 && source <(helm completion bash)
 command -v kind >/dev/null 2>&1 && source <(kind completion bash)
 command -v baconctl >/dev/null 2>&1 && source <(baconctl completion bash)
 command -v codectl >/dev/null 2>&1 && source <(codectl completion bash)
+command -v velero >/dev/null 2>&1 && source <(velero completion bash)
 
 # Enable the use of ctrl+s and ctrl+q instead of freezing screen
 stty -ixon
