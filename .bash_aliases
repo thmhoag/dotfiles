@@ -9,8 +9,16 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles-repo/ --work-tree=$HOME'
 # use nvim if available
 command -v nvim >/dev/null 2>&1 && alias vim="nvim"
 
-# copy the original statement, but replace the last command (git) with your alias (g)
-complete -o bashdefault -o default -o nospace -F __git_wrap__git_main dotfiles
+if [ -f "/usr/share/bash-completion/completions/git" ]; then
+  # Enable Git completions for aliases
+  . /usr/share/bash-completion/completions/git
+  for a in $(alias | sed -n 's/^alias \(g[^=]*\)=.git .*/\1/p'); do
+    c=$(alias $a | sed 's/^[^=]*=.git \([a-z0-9\-]\+\).*/\1/' | tr '-' '_')
+    if set | grep -q "^_git_$c *()"; then
+      eval "__git_complete $a _git_$c"
+    fi
+  done
+fi
 
 
 # Add an "alert" alias for long running commands.  Use like so:
