@@ -1,6 +1,6 @@
 
 # Set default editor
-export EDITOR=vim
+export EDITOR=nvim
 
 # use new docker buildkit
 export DOCKER_BUILDKIT=1
