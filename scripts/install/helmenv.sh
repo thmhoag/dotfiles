@@ -4,4 +4,5 @@ set -eo pipefail
 
 echo -e "installing helmenv...\n\n"
 
-git clone https://github.com/yuya-takeyama/helmenv.git ~/.helmenv
+rm -rf $HOME/.helmenv
+git clone https://github.com/yuya-takeyama/helmenv.git $HOME/.helmenv
