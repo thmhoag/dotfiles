@@ -2,6 +2,18 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# DEBUG
+
+# open file descriptor 5 such that anything written to /dev/fd/5
+# is piped through ts and then to /tmp/timestamps
+# exec 5> >(ts -i "%.s" >> /tmp/timestamps)
+#
+# # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
+# export BASH_XTRACEFD="5"
+#
+# # Enable tracing
+# set -x
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -113,25 +125,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Setup bash auto-complete for tmuxinator if present
-if [ -f "$HOME/.bin/tmuxinator.bash" ]; then source "$HOME/.bin/tmuxinator.bash"; fi
-
-# setup go version manager
-if [ -f "$HOME/.gvm/scripts/gvm" ]; then source "$HOME/.gvm/scripts/gvm"; fi
-
 # setup helmenv
 if [ -d "$HOME/.helmenv/bin" ]; then export PATH="$HOME/.helmenv/bin:$PATH"; fi
-
-export NVM_DIR="$HOME/.nvm"
-if [ -f "$NVM_DIR/nvm.sh" ]; then source "$NVM_DIR/nvm.sh"; fi
-if [ -f "$NVM_DIR/bash_completion" ]; then source "$NVM_DIR/bash_completion"; fi
-
-command -v kubectl >/dev/null 2>&1 && source <(kubectl completion bash)
-command -v helm >/dev/null 2>&1 && source <(helm completion bash)
-command -v kind >/dev/null 2>&1 && source <(kind completion bash)
-command -v baconctl >/dev/null 2>&1 && source <(baconctl completion bash)
-command -v codectl >/dev/null 2>&1 && source <(codectl completion bash)
-command -v velero >/dev/null 2>&1 && source <(velero completion bash)
 
 # Enable the use of ctrl+s and ctrl+q instead of freezing screen
 stty -ixon
