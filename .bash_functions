@@ -3,7 +3,7 @@
 # defer loading of nvm till use to speed up
 # initial bash load times
 function _install_nvm() {
-  unset -f nvm npm node
+  unset -f nvm npm node vim
 
   export NVM_DIR="$HOME/.nvm"
   if [ -f "$NVM_DIR/nvm.sh" ]; then source "$NVM_DIR/nvm.sh" --no-use; fi
@@ -25,6 +25,10 @@ function npm() {
 
 function node() {
     _install_nvm node "$@"
+}
+
+function vim() {
+    _install_nvm vim "$@"
 }
 
 function _install_gvm() {
