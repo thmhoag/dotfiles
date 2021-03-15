@@ -1,3 +1,4 @@
 .idea/**
 .undodir/**
 .helm-version
+*.code-workspace
