@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
 
+function deferredCompletionLoad() {
+    source /dev/stdin << EOF
+    if type $@ &>/dev/null; then
+        function $@() {
+            unset -f "\${FUNCNAME[0]}"
+            source <(\$(which "\${FUNCNAME[0]}") completion bash)
+            \${FUNCNAME[0]} "\$@"
+        }
+    fi
+EOF
+}
+
+deferredCompletionLoad kubectl
+deferredCompletionLoad helm
+deferredCompletionLoad kind
+deferredCompletionLoad codectl
+deferredCompletionLoad minikube
+deferredCompletionLoad baconctl
+deferredCompletionLoad velero
+
+# no need to leave this setup func hanging around
+unset -f deferredCompletionLoad
+
+
 # defer loading of nvm till use to speed up
 # initial bash load times
 function _install_nvm() {
@@ -45,73 +69,6 @@ function gvm() {
 
 function go() {
     _install_gvm go "$@"
-}
-
-function _install_kubectl() {
-    unset -f kubectl
-
-    command -v kubectl >/dev/null 2>&1 && source <(kubectl completion bash)
-    "$@"
-}
-
-function kubectl() {
-    _install_kubectl kubectl "$@"
-}
-
-
-function _install_helm() {
-    unset -f helm
-
-    command -v helm >/dev/null 2>&1 && source <(helm completion bash)
-    "$@"
-}
-
-function helm() {
-    _install_helm helm "$@"
-}
-
-function _install_kind() {
-    unset -f kind
-
-    command -v kind >/dev/null 2>&1 && source <(kind completion bash)
-    "$@"
-}
-
-function kind() {
-    _install_kind kind "$@"
-}
-
-function _install_baconctl() {
-    unset -f baconctl
-
-    command -v baconctl >/dev/null 2>&1 && source <(baconctl completion bash)
-    "$@"
-}
-
-function baconctl() {
-    _install_baconctl baconctl "$@"
-}
-
-function _install_codectl() {
-    unset -f codectl
-
-    command -v codectl >/dev/null 2>&1 && source <(codectl completion bash)
-    "$@"
-}
-
-function codectl() {
-    _install_codectl codectl "$@"
-}
-
-function _install_velero() {
-    unset -f velero
-
-    command -v velero >/dev/null 2>&1 && source <(velero completion bash)
-    "$@"
-}
-
-function velero() {
-    _install_velero velero "$@"
 }
 
 # enable bash function file
