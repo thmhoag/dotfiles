@@ -51,7 +51,7 @@ else
   Plug 'junegunn/fzf.vim'
 endif
 
-Plug 'yuki-ycino/fzf-preview.vim'
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 
 let g:make = 'gmake'
 if exists('make')
