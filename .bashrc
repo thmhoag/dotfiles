@@ -128,6 +128,9 @@ fi
 # setup helmenv
 if [ -d "$HOME/.helmenv/bin" ]; then export PATH="$HOME/.helmenv/bin:$PATH"; fi
 
+# setup kubectl krew
+if [ -d "$HOME/.krew/bin" ]; then export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"; fi
+
 # Enable the use of ctrl+s and ctrl+q instead of freezing screen
 stty -ixon
 
