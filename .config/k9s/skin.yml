@@ -1,3 +1,7 @@
+# -----------------------------------------------------------------------------
+# Dracula skin
+# -----------------------------------------------------------------------------
+
 # Styles...
 foreground: &foreground "#f8f8f2"
 background: &background "#282a36"
@@ -19,10 +23,25 @@ k9s:
     fgColor: *foreground
     bgColor: *background
     logoColor: *purple
+  # Command prompt styles
+  prompt:
+    fgColor: *foreground
+    bgColor: *background
+    suggestColor: *purple
   # ClusterInfoView styles.
   info:
     fgColor: *pink
     sectionColor: *foreground
+  # Dialog styles.
+  dialog:
+    fgColor: *foreground
+    bgColor: *background
+    buttonFgColor: *foreground
+    buttonBgColor: *purple
+    buttonFocusFgColor: *yellow
+    buttonFocusBgColor: *pink
+    labelFgColor: *orange
+    fieldFgColor: *foreground
   frame:
     # Borders styles.
     border:
@@ -44,7 +63,7 @@ k9s:
       modifyColor: *purple
       addColor: *green
       errorColor: *red
-      highlightcolor: *orange
+      highlightColor: *orange
       killColor: *comment
       completedColor: *comment
     # Border title styles.
@@ -68,7 +87,6 @@ k9s:
     table:
       fgColor: *foreground
       bgColor: *background
-      cursorColor: *current_line
       # Header row styles.
       header:
         fgColor: *foreground
@@ -90,3 +108,8 @@ k9s:
     logs:
       fgColor: *foreground
       bgColor: *background
+      indicator:
+        fgColor: *foreground
+        bgColor: *purple
+        toggleOnColor: *green
+        toggleOffColor: *cyan
