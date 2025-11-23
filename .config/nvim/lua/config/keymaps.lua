@@ -1,3 +1,6 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
 
 -- custom vim keybindings
 vim.keymap.set("n", "<C-q>", ":qa<CR>", { noremap = true, silent = true })
@@ -32,14 +35,12 @@ vim.keymap.set("n", "<F2>", function()
   print("Paste mode: " .. (vim.opt.paste:get() and "ON" or "OFF"))
 end, { noremap = true, silent = true, desc = "Toggle paste mode" })
 
-
 vim.keymap.set("n", "<leader>F", function()
   local api = require("nvim-tree.api")
   if api.tree.is_visible() then
     api.tree.find_file({ open = true, focus = true })
   end
 end, { desc = "Reveal file in tree if tree is visible", silent = true })
-
 
 -- LSP bindings
 -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename", buffer = 0 })
